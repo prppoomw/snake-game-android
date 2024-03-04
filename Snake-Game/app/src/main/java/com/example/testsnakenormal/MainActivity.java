@@ -61,11 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void toggleSound() {
         if (isSoundOn) {
-            // Turn off sound
             bgsong.pause();
             ((ImageView) findViewById(R.id.sound)).setImageResource(R.drawable.soff);
         } else {
-            // Turn on sound
             bgsong.start();
             ((ImageView) findViewById(R.id.sound)).setImageResource(R.drawable.son);
         }
