@@ -92,7 +92,7 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        // No-op
+        
     }
 
     @Override
@@ -184,17 +184,15 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
             ((Activity) getContext()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    showGameOverDialog(); // Display the game over dialog
+                    showGameOverDialog();
                 }
             });
             return;
         }
 
-        // ตรวจสอบการชนกับตัวเอง
         for (int i = 1; i < snakeBody.size(); i++) {
             PointF bodyPart = snakeBody.get(i);
             if (newHead.x == bodyPart.x && newHead.y == bodyPart.y) {
-                // ถ้าตำแหน่งของหัวตรงกับตำแหน่งของส่วนอื่น ๆ ของงู
                 if (backgroundMusicListener != null) {
                     backgroundMusicListener.gameOverMusic();
                 }
@@ -205,7 +203,7 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
                 ((Activity) getContext()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showGameOverDialog(); // Display the game over dialog
+                        showGameOverDialog();
                     }
                 });
                 return;
@@ -222,7 +220,7 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
             score++;
             if (score > highScore) {
                 highScore = score;
-                saveHighScore(); // Save the new high score to SharedPreferences
+                saveHighScore();
             }
 
             updateScoreTextView();
@@ -254,7 +252,7 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
             if (gameOver) {
                 paint.setColor(Color.WHITE);
                 paint.setTextSize(textSize);
-                String text = "Game Over"; // replace with context.getString(R.string.game_over_text) if you are using string resources
+                String text = "Game Over";
                 float textWidth = paint.measureText(text);
                 canvas.drawText(text, (getWidth() - textWidth) / 2, getHeight() / 2, paint);
 
@@ -293,7 +291,6 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
     }
 
     public boolean isTouchInsidePauseButton(float x, float y) {
-        // ตรวจสอบว่าการแตะอยู่ภายในปุ่ม pause หรือไม่
         return x >= padding && x <= (padding + pauseButtonSize)
                 && y >= padding && y <= (padding + pauseButtonSize);
     }
@@ -303,11 +300,8 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
     }
 
     public void showPauseDialog() {
-        pause(); // หยุดเกมชั่วคราว
+        pause();
 
-        // TODO: สร้างหน้าต่าง pause ที่ให้เลือกว่าจะเล่นต่อหรือออก
-        // ในหน้าต่าง pause ให้เพิ่มปุ่ม "Resume" และ "Quit"
-        // ตัวอย่าง:
          AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
          builder.setMessage("Game Paused");
          builder.setPositiveButton("Resume", new DialogInterface.OnClickListener() {
@@ -338,7 +332,6 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
 
 
     public void updateScoreTextView() {
-        // Update the score TextView in the layout
         ((Activity) getContext()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -353,7 +346,7 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
     }
 
     public void showGameOverDialog() {
-        pause(); // Pause the game
+        pause();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Game Over");
@@ -362,7 +355,6 @@ public class SnakeGame extends SurfaceView implements Runnable, SurfaceHolder.Ca
                 if (backgroundMusicListener != null) {
                     backgroundMusicListener.playAgainMusic();
                 }
-                // Reset the game state and resume
                 resetGame();
                 resume();
                 dialog.dismiss();
