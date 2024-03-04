@@ -18,11 +18,9 @@ public class GameActivity extends AppCompatActivity implements BgMusicListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Retrieve sound-related information from Intent
         Intent intent = getIntent();
         isSoundOn = intent.getBooleanExtra("isSoundOn", true);
 
-        // Start or pause background music based on isSoundOn
         if (isSoundOn) {
             bgsong = MediaPlayer.create(this, R.raw.gamesong);
             bgsong.setLooping(true);
@@ -37,7 +35,6 @@ public class GameActivity extends AppCompatActivity implements BgMusicListener{
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // ทำตามต้องการเมื่อปุ่ม Pause ถูกคลิก
                 snakeGame.showPauseDialog();
                 pauseBackgroundMusic();
             }
